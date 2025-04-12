@@ -1,0 +1,55 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  width: 100vw;
+  height: 100vh;
+}
+
+.background {
+  background-image:  url('./assets/background/shopibag-bg.png');
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-position: center;
+  min-height: 100vh;
+  min-width: 100vw;
+}
+
+.popup-animate {
+  animation: popup 0.7s ease-in forwards; 
+}
+
+@keyframes popup {
+  0% {
+    opacity: 1;
+    transform: translateY(0);
+  } 50% {
+    opacity: 1;
+    transform: translateY(-10px)
+  } 100% {
+    opacity: 0;
+    transform: translateY(0);
+  }
+}
+
+.animate1 {
+  animation: moving 1s linear infinite;
+}
+
+@keyframes moving {
+  0% {
+    transform: translateX(10px);
+  } 50% {
+    transform: translateX(-10px);
+  } 100% {
+    transform: translateX(10px)
+  }
+}
