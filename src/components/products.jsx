@@ -1,6 +1,5 @@
 import React, { useState, useEffect, useContext } from 'react'
 import { MdAddBox } from "react-icons/md";
-import img from '../assets/images/nysc cartoon.jpg'
 import CartContext from '../context/CartContext';
 
 
@@ -8,17 +7,37 @@ import CartContext from '../context/CartContext';
 const Products = () => {
 
   const cartContext = useContext(CartContext);
-  //console.log(cartContext); // should show an object
+  const [loadedProducts, setLoadedProducts] = useState([])
+  const [loadingProduct, setLoadingProduct] = useState(false)
   
+  console.log('product', loadedProducts)
   if (!cartContext) {
     console.error('CartContext is undefined!');
   }
   
   const {cartItems, setCartItems, cartCount, setCartCount} = cartContext || {};
   
- //console.log('cartItems:', cartItems);
- //console.log('cartCount:', cartCount);
  
+ const fetchData = async () => {
+  try {
+        setLoadingProduct(true)
+        const res = await fetch('http://localhost:5000/api/v1/products/all')
+  
+        if(!res.ok) {
+          console.error('Something went please try again later', error)
+        }
+  
+        const data = await res.json()
+        console.log(data.products)
+        setLoadedProducts(data.products)
+      } catch (error) {
+        console.log('Failed to get product')
+      }
+ }
+  useEffect( () => {
+    fetchData()
+  }, [])
+
     const [showToaster, setShowToaster] = useState(false)
     const [imageLoading, setImageLoading] = useState(false)
   
@@ -42,26 +61,20 @@ const Products = () => {
     
       setCartCount((prevCount) => prevCount + 1);
     
-      // Show the popup
+     
       setShowToaster(true);
       setTimeout(() => {
         setShowToaster(false);
       }, 800);
       
     };
-    
-    useEffect(() => {
-        console.log('Cart Items:', cartItems);
-        console.log('Cart Count:', cartCount);
-      }, [cartItems, cartCount]);
-
      
 
   return (
     <div className='relative'>
       <p className='text-center font-bold'>Trending Fashion</p>
       <div className="grid grid-cols-2 gap-2 px-2 py-3">
-        {products.map((product, index) => (
+        {loadedProducts.map((product, index) => (
           <div key={index} className="bg-blue-500 rounded-2xl overflow-hidden w-full h-auto flex flex-col">
             
             {/* Image Section */}
@@ -106,30 +119,4 @@ const Products = () => {
 
 export default Products
 
-const products = [
-  {
-    "name": "Classic Men's Cotton Shirt",
-    "price": 29.99,
-    "description": "A timeless cotton shirt perfect for formal and casual occasions.",
-    "imageUrl": "https://images.unsplash.com/photo-1609709295948-17d77cb2a69b?w=700&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NHx8Y2xvdGhzfGVufDB8fDB8fHww"
-  },
-  {
-    "name": "Women's Summer Floral Dress",
-    "price": 49.99,
-    "description": "A light and breezy floral dress ideal for summer outings.",
-    "imageUrl": "https://images.unsplash.com/photo-1581655353564-df123a1eb820?w=700&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8c2hpcnR8ZW58MHx8MHx8fDA%3D"
-  },
-  {
-    "name": "Unisex Denim Jacket",
-    "price": 59.99,
-    "description": "A stylish denim jacket suitable for all genders and seasons.",
-    "imageUrl": "https://images.unsplash.com/photo-1609709295948-17d77cb2a69b?w=700&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NHx8Y2xvdGhzfGVufDB8fDB8fHww"
-  },
-  {
-    "name": "Men's Leather Wallet",
-    "price": 19.99,
-    "description": "A durable leather wallet with multiple compartments.",
-    "imageUrl": "https://images.unsplash.com/photo-1581655353564-df123a1eb820?w=700&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8c2hpcnR8ZW58MHx8MHx8fDA%3D"
-  },
-]
 
