@@ -4,17 +4,28 @@ import { IoMdContact } from "react-icons/io";
 import logo from '../assets/images/shopibag-logo1.png'
 import { IoMenu } from "react-icons/io5";
 import { IoSearch } from "react-icons/io5";
-import CartContext from '../context/CartContext';
+import PageContext from '../context/PageContext';
+import { useNavigate } from 'react-router-dom';
 
 
-const navbar = ({menuOpen, setMenuOpen}) => {
 
-  const {cartCount} = useContext(CartContext)
+const Navbar = ({menuOpen, setMenuOpen}) => {
 
-  const [isLoggedIn, setIsLoggedIn] = useState(true)
+  const navigate = useNavigate()
+  const handleCartClick = () => {
+    navigate('/cart')
+  }
+  const pageContext = useContext(PageContext);
+   if(!pageContext) {
+      console.error('Page contexts are not defined')
+    }
+  const {cartCount, isLoggedIn} = pageContext || {}
+ 
+ 
+  
 
   return (
-    <header className='w-full h-auto fixed top-0 z-50'>
+    <header className='w-full h-auto fixed top-0 z-30'>
       <div className='w-full h-[60px] bg-white  flex items-center justify-between gap-10 px-5 py-7 '>
         <div className='flex flex-col justify-center items-center'>
             <img src={logo} alt="logo" className='w-[40px] h-[40px]' />
@@ -22,8 +33,8 @@ const navbar = ({menuOpen, setMenuOpen}) => {
         </div>
         {isLoggedIn ? (
           <div className='flex gap-5 text-3xl text-blue-500'>
-            <div className='flex relative'>
-                <FaShoppingCart/>
+            <div className='flex relative' onClick={handleCartClick}>
+                <FaShoppingCart />
                 <span className='absolute text-sm text-white font-bold right-0 top-0 bg-black rounded-full w-5 h-5 text-center'>{cartCount}</span>
             </div>
             <IoMdContact/>
@@ -49,4 +60,4 @@ const navbar = ({menuOpen, setMenuOpen}) => {
   )
 }
 
-export default navbar
+export default Navbar
