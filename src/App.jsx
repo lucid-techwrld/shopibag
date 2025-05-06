@@ -15,11 +15,12 @@ import { Routes, Route } from 'react-router-dom'
 function App() {
 
   const [menuOpen, setMenuOpen] = useState(false)
+  const [searchProducts, setSearchProducts] = useState([])
 
   return (
     <div className='w-full bg-slate-50 h-screen'>
       <Routes>
-        <Route element={<Layout menuOpen={menuOpen} setMenuOpen={setMenuOpen}/>}>
+        <Route element={<Layout menuOpen={menuOpen} setMenuOpen={setMenuOpen} searchProducts={searchProducts} setSearchProducts={setSearchProducts}/>}>
           <Route path='/' element={<Home/>}/>
           <Route path='/WelcomePage' element={<WelcomePage/>}/>
           <Route path='/login' element={<Login/>}/>

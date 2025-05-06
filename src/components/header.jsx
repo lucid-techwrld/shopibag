@@ -9,7 +9,7 @@ import { useNavigate } from 'react-router-dom';
 
 
 
-const Navbar = ({menuOpen, setMenuOpen}) => {
+const Navbar = ({menuOpen, setMenuOpen, searchProducts, setSearchProducts}) => {
 
   const navigate = useNavigate()
   const handleCartClick = () => {
@@ -22,7 +22,26 @@ const Navbar = ({menuOpen, setMenuOpen}) => {
   const {cartCount, isLoggedIn} = pageContext || {}
  
  
-  
+  const searchProduct = async () => {
+    const search = document.getElementById('search').value
+    
+    try {
+      const res = await fetch(`http://localhost:5000/api/v1/products/search?query=${search}`)
+
+      if(!res.ok) {
+        throw Error('Something went wrong try again!')
+      }
+
+      const data = await res.json()
+      if(!data.success) {
+        console.log('Couldnt get data')
+      }
+      console.log(data.products)
+      setSearchProducts(data.products)
+    } catch (error) {
+      console.log('Error searching product', error.msg)
+    }
+  }
 
   return (
     <header className='w-full h-auto fixed top-0 z-30'>
@@ -48,7 +67,7 @@ const Navbar = ({menuOpen, setMenuOpen}) => {
           )}
       </div>
         <div className='w-full h-16 px-2 py-3 relative flex  items-center bg-slate-50'>
-          <IoSearch className='absolute text-xl right-5'/>
+          <IoSearch className='absolute text-xl right-5' onClick={searchProduct}/>
           <input
             type="search"
             name="search"

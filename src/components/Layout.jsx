@@ -3,11 +3,11 @@ import Navbar from './header'
 import MenuBar from './menuBar'
 import { Outlet } from 'react-router-dom'
 
-const Layout = ({ menuOpen, setMenuOpen }) => {
+const Layout = ({ menuOpen, setMenuOpen, searchProducts, setSearchProducts }) => {
   return (
     <div>
-      <Navbar menuOpen={menuOpen} setMenuOpen={setMenuOpen} />
-      <MenuBar menuOpen={menuOpen} setMenuOpen={setMenuOpen}/>
+      <Navbar menuOpen={menuOpen} setMenuOpen={setMenuOpen} searchProducts={searchProducts} setSearchProducts={setSearchProducts}/>
+      <MenuBar menuOpen={menuOpen} setMenuOpen={setMenuOpen} searchProducts={searchProducts} setSearchProducts={setSearchProducts}/>
         {menuOpen && (
             <div
             onClick={() => setMenuOpen(false)}

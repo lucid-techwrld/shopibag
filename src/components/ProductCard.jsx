@@ -1,10 +1,12 @@
 import React, { useState } from 'react'
 import { MdAddBox } from 'react-icons/md'
 import useCart from '../hooks/useCart'
+import formatPrice from '../utils/formatPrice' // Import the formatPrice utility
 
 const ProductCard = ({ product }) => {
   const { handleAddToCart } = useCart()
   const [imageLoaded, setImageLoaded] = useState(false) // Track image loading state
+  const [showPopup, setShowPopup] = useState(false) // Track popup visibility
 
   const addToCart = () => {
     handleAddToCart({
@@ -14,10 +16,23 @@ const ProductCard = ({ product }) => {
       description: product.description,
       imageUrl: product.imageUrl,
     })
+
+    // Show popup for 2 seconds
+    setShowPopup(true)
+    setTimeout(() => {
+      setShowPopup(false)
+    }, 2000)
   }
 
   return (
-    <div className="bg-blue-500 rounded-2xl overflow-hidden w-full h-auto flex flex-col">
+    <div className="bg-blue-500 rounded-2xl overflow-hidden w-full h-auto flex flex-col relative">
+      {/* Popup Notification */}
+      {showPopup && (
+        <div className="absolute top-2 right-2 bg-green-500 text-white text-sm font-bold px-4 py-2 rounded-md shadow-md animate-fade-in-out">
+          Added successfully!
+        </div>
+      )}
+
       {/* Image Section */}
       <div className="h-[60%] w-full bg-gray-400 relative">
         {!imageLoaded && (
@@ -40,7 +55,8 @@ const ProductCard = ({ product }) => {
           <p className="text-sm text-white">{product.description}</p>
         </div>
         <div className="flex justify-between items-center text-white font-bold text-md mt-2">
-          <p>{'$' + product.price}</p>
+          {/* Use formatPrice to display the formatted price */}
+          <p>{'$' + formatPrice(product.price)}</p>
           <MdAddBox
             onClick={addToCart}
             className="text-4xl cursor-pointer hover:text-blue-300 transition-all"

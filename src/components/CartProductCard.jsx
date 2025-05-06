@@ -1,6 +1,7 @@
 import React from 'react'
 import { MdAddBox, MdRemoveCircle } from 'react-icons/md'
 import useCart from '../hooks/useCart'
+import formatPrice from '../utils/formatPrice'
 
 const CartProductCard = ({ product }) => {
   const { handleAddToCart, handleRemoveFromCart } = useCart()
@@ -19,7 +20,7 @@ const CartProductCard = ({ product }) => {
         />
         <div>
           <p className="font-bold">{product.name || 'Unknown Product'}</p> {/* Fallback for name */}
-          <p className="text-sm text-gray-600">{'$' + (product.price || '0.00')}</p> {/* Fallback for price */}
+          <p className="text-sm text-gray-600">{'$' + (formatPrice(product.price) || '0.00')}</p> {/* Fallback for price */}
         </div>
       </div>
       <div className="flex items-center gap-4">

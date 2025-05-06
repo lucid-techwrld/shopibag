@@ -4,6 +4,7 @@ import CartProductCard from '../components/CartProductCard'
 import Products from '../components/products'
 import BackButton from '../components/BackButton'
 
+
 const CartPage = () => {
   const cartContext = useContext(PageContext)
   if (!cartContext) {
