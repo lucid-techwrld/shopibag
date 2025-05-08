@@ -9,7 +9,7 @@ import { useNavigate } from 'react-router-dom';
 
 
 
-const Navbar = ({menuOpen, setMenuOpen, searchProducts, setSearchProducts}) => {
+const Navbar = ({menuOpen, setMenuOpen}) => {
 
   const navigate = useNavigate()
   const handleCartClick = () => {
@@ -22,25 +22,12 @@ const Navbar = ({menuOpen, setMenuOpen, searchProducts, setSearchProducts}) => {
   const {cartCount, isLoggedIn} = pageContext || {}
  
  
-  const searchProduct = async () => {
-    const search = document.getElementById('search').value
-    
-    try {
-      const res = await fetch(`http://localhost:5000/api/v1/products/search?query=${search}`)
-
-      if(!res.ok) {
-        throw Error('Something went wrong try again!')
-      }
-
-      const data = await res.json()
-      if(!data.success) {
-        console.log('Couldnt get data')
-      }
-      console.log(data.products)
-      setSearchProducts(data.products)
-    } catch (error) {
-      console.log('Error searching product', error.msg)
-    }
+  const searchProduct = async (event) => {
+    event.preventDefault()
+    let searchInput = document.getElementById('search')
+    const searchValue = searchInput.value.trim()
+    navigate(`/search/${searchValue}`)
+    searchInput.value = ''
   }
 
   return (
@@ -66,7 +53,7 @@ const Navbar = ({menuOpen, setMenuOpen, searchProducts, setSearchProducts}) => {
             </div>
           )}
       </div>
-        <div className='w-full h-16 px-2 py-3 relative flex  items-center bg-slate-50'>
+        <form className='w-full h-16 px-2 py-3 relative flex  items-center bg-slate-50' onSubmit={searchProduct}>
           <IoSearch className='absolute text-xl right-5' onClick={searchProduct}/>
           <input
             type="search"
@@ -74,7 +61,7 @@ const Navbar = ({menuOpen, setMenuOpen, searchProducts, setSearchProducts}) => {
             id="search"
             className='outline-none border-2 border-black w-full rounded-full h-full bg-transparent px-8 py-3' placeholder='search categories, products brand.....'
           />
-        </div>
+        </form>
     </header>
   )
 }

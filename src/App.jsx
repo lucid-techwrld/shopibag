@@ -8,6 +8,7 @@ import NotFound from './pages/notFound'
 import CategoryPage from './pages/CategoryPage'
 import Layout from './components/Layout'
 import CartPage from './pages/CartPage'
+import SearchPage from './pages/SearchPage'
 
 import { Routes, Route } from 'react-router-dom'
 
@@ -27,6 +28,7 @@ function App() {
           <Route path='/signup' element={<SignUp/>}/>
           <Route path='/category/:category' element={<CategoryPage/>}/>
           <Route path='/cart' element={<CartPage />} />
+          <Route path='/search/:query' element={<SearchPage/>}/>
         </Route>
         <Route path='*' element={<NotFound/>}/>
       </Routes>

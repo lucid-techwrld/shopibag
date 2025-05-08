@@ -23,7 +23,7 @@ module.exports = {
         },
       },
       animation: {
-        'fade-in-out': 'fade-in-out 2s ease-in-out',
+        'fade-in-out': 'fade-in-out 1s ease-in-out',
       },
     },
   },
