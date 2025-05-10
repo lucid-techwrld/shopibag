@@ -1,39 +1,33 @@
-import React, { useState, useEffect, useContext } from 'react'
-import PageContext from '../context/PageContext'
-import ProductCard from './ProductCard'
-import useCart from '../hooks/useCart'
+import React, { useState, useEffect, useContext } from "react";
+import ProductCard from "./ProductCard";
+import { useCart } from "../hooks/useCart";
 
 const Products = () => {
-  const pageContext = useContext(PageContext)
-  const [loadedProducts, setLoadedProducts] = useState([])
-  const [loadingProduct, setLoadingProduct] = useState(false)
-  const { handleAddToCart } = useCart(loadedProducts)
-
-  if (!pageContext) {
-    console.error('Page contexts are not defined')
-  }
+  const [loadedProducts, setLoadedProducts] = useState([]);
+  const [loadingProduct, setLoadingProduct] = useState(false);
+  const { handleAddToCart } = useCart(loadedProducts);
 
   const fetchProducts = async () => {
     try {
-      setLoadingProduct(true)
-      const res = await fetch('http://localhost:5000/api/v1/products/all')
+      setLoadingProduct(true);
+      const res = await fetch("http://localhost:5000/api/v1/products/all");
 
       if (!res.ok) {
-        throw new Error('Something went wrong, please try again later')
+        throw new Error("Something went wrong, please try again later");
       }
 
-      const data = await res.json()
-      setLoadedProducts(data.products)
+      const data = await res.json();
+      setLoadedProducts(data.products);
     } catch (error) {
-      console.log('Failed to get product')
+      console.log("Failed to get product");
     } finally {
-      setLoadingProduct(false)
+      setLoadingProduct(false);
     }
-  }
+  };
 
   useEffect(() => {
-    fetchProducts()
-  }, [])
+    fetchProducts();
+  }, []);
 
   return (
     <div className="relative">
@@ -53,13 +47,11 @@ const Products = () => {
             />
           ))}
         </div>
-      ) : !loadingProduct && (
-        <p className="text-center">No products available</p>
+      ) : (
+        !loadingProduct && <p className="text-center">No products available</p>
       )}
     </div>
-  )
-}
+  );
+};
 
-export default Products
-
-
+export default Products;

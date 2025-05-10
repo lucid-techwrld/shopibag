@@ -1,22 +1,17 @@
-import React from 'react'
-import Hero from '../components/hero'
-import Products from '../components/products'
-import Footer from '../components/footer'
-import { useState } from 'react'
-import MenuBar from '../components/menuBar'
+import React from "react";
+import Hero from "../components/hero";
+import Products from "../components/products";
+import Footer from "../components/footer";
 
-
-
-const  Home = () => {
-
+const Home = () => {
   return (
-      <div className='w-screen h-full relative'>
-          <div className='mt-[115px]'>
-            <Hero/>
-            <Products/>
-            <Footer/>
-          </div> 
+    <div className="w-screen h-full relative">
+      <div className="mt-[115px]">
+        <Hero />
+        <Products />
+        <Footer />
       </div>
-  )
-}
- export default Home
+    </div>
+  );
+};
+export default Home;

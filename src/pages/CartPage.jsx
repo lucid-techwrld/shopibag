@@ -1,16 +1,11 @@
-import React, { useContext } from 'react'
-import PageContext from '../context/PageContext'
-import CartProductCard from '../components/CartProductCard'
-import Products from '../components/products'
-import BackButton from '../components/BackButton'
-
+import React from "react";
+import CartProductCard from "../components/CartProductCard";
+import Products from "../components/products";
+import BackButton from "../components/BackButton";
+import { useCart } from "../hooks/useCart.jsx";
 
 const CartPage = () => {
-  const cartContext = useContext(PageContext)
-  if (!cartContext) {
-    console.error('Cart context is not defined')
-  }
-  const { cartItems } = cartContext || {}
+  const { cartItems } = useCart();
 
   return (
     <div className="w-full h-full px-2 py-6 md:px-10 lg:px-20">
@@ -19,7 +14,9 @@ const CartPage = () => {
         <BackButton />
       </div>
 
-      <h1 className="text-2xl font-bold text-center mb-6 md:text-3xl lg:text-4xl">Your Cart</h1>
+      <h1 className="text-2xl font-bold text-center mb-6 md:text-3xl lg:text-4xl">
+        Your Cart
+      </h1>
       {cartItems?.length > 0 ? (
         <div>
           <div className="flex justify-between items-center mb-4">
@@ -29,7 +26,7 @@ const CartPage = () => {
             </button>
           </div>
           {cartItems.map((product) => (
-            <CartProductCard key={product.id} product={product} />
+            <CartProductCard key={product.productId.id} product={product} />
           ))}
         </div>
       ) : (
@@ -39,7 +36,7 @@ const CartPage = () => {
         </div>
       )}
     </div>
-  )
-}
+  );
+};
 
-export default CartPage
+export default CartPage;

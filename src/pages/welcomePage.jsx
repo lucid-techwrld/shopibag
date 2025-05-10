@@ -1,6 +1,5 @@
 import React from 'react'
 import { useNavigate } from 'react-router-dom'
-import logo from '../assets/images/shopibag-logo1.png'
 
 const WelcomePage = () => {
   const navigate = useNavigate()
@@ -9,23 +8,29 @@ const WelcomePage = () => {
   }
 
   return (
-    <div className="bg-[url('./assets/background/shopibag-bg.png')] bg-cover bg-center bg-no-repeat bg-fixed min-h-screen w-full">
-      <div className="text-white text-2xl font-bold py-20 flex flex-col justify-center items-center md:text-4xl">
-        <h2>Welcome to</h2>
-        <h1 className="text-5xl mb-3 md:text-7xl">SHOPiBAG</h1>
-        <p className="text-sm md:text-lg">where fashion meets function</p>
+    <div className="relative min-h-screen w-full flex flex-col justify-center items-center bg-white">
+      {/* Background Patterns / Vectors */}
+      
+      {/* Welcome Text */}
+      <div className="z-10 text-gray-800 text-center px-4">
+        <h2 className="text-2xl font-bold mb-2 md:text-4xl">Welcome to</h2>
+        <h1 className="text-5xl font-extrabold mb-4 md:text-7xl text-blue-500 drop-shadow-lg">SHOPiBAG</h1>
+        <p className="text-sm md:text-lg text-gray-600">Where fashion meets function</p>
       </div>
-      <div className="w-full flex justify-center items-center">
-        <img src={logo} alt="logo" className="w-[200px] h-[200px] md:w-[300px] md:h-[300px]" />
-      </div>
-      <div className="mt-20 flex flex-col justify-center items-center">
+
+      {/* Get Started Button */}
+      <div className="z-10 mt-16">
         <button
           onClick={handleClick}
-          className="py-5 px-20 outline-none border-4 text-2xl rounded-full font-bold text-white hover:bg-blue-500/50 md:py-6 md:px-24 md:text-3xl"
+          className="py-4 px-16 bg-blue-500 text-white text-xl font-bold rounded-full shadow-xl hover:bg-blue-400 transition-all md:py-5 md:px-20 md:text-2xl"
         >
           Get Started
         </button>
-        <p className="italic text-sm md:text-lg">where fashion meets function.....</p>
+      </div>
+
+      {/* Footer Text */}
+      <div className="z-10 mt-10">
+        <p className="italic text-sm md:text-lg text-gray-500">Explore the world of fashion and functionality...</p>
       </div>
     </div>
   )
