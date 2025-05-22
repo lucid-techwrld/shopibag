@@ -17,7 +17,9 @@ const MenuBar = ({ menuOpen, setMenuOpen }) => {
   };
 
   const handleLogout = async () => {
-    const res = await fetch(`http://localhost:5000/api/v1/auth/logout`);
+    const res = await fetch(
+      `${import.meta.env.VITE_API_BASE_URL}/api/v1/auth/logout`
+    );
 
     try {
       const data = await res.json();

@@ -11,7 +11,7 @@ export const LoginProvider = ({ children }) => {
     const checkLoginStatus = async () => {
       try {
         const response = await fetch(
-          "http://localhost:5000/api/v1/auth/checkLogin",
+          `${import.meta.env.VITE_API_BASE_URL}/api/v1/auth/checkLogin`,
           {
             method: "GET",
             credentials: "include",

@@ -12,10 +12,13 @@ export const CartProvider = ({ children }) => {
   useEffect(() => {
     const fetchCart = async () => {
       try {
-        const res = await fetch("http://localhost:5000/api/v1/getCart", {
-          method: "GET",
-          credentials: "include", // Include cookies in the request
-        });
+        const res = await fetch(
+          `${import.meta.env.VITE_API_BASE_URL}/api/v1/getCart`,
+          {
+            method: "GET",
+            credentials: "include", // Include cookies in the request
+          }
+        );
 
         const data = await res.json();
 
@@ -45,17 +48,20 @@ export const CartProvider = ({ children }) => {
 
   const handleAddToCart = async (product) => {
     try {
-      const res = await fetch("http://localhost:5000/api/v1/addCart", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        credentials: "include",
-        body: JSON.stringify({
-          productId: product._id,
-          quantity: 1,
-        }),
-      });
+      const res = await fetch(
+        `${import.meta.env.VITE_API_BASE_URL}/api/v1/addCart`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          credentials: "include",
+          body: JSON.stringify({
+            productId: product._id,
+            quantity: 1,
+          }),
+        }
+      );
 
       const data = await res.json();
       if (!res.ok) {
@@ -80,14 +86,17 @@ export const CartProvider = ({ children }) => {
 
   const handleRemoveFromCart = async (productId) => {
     try {
-      const res = await fetch("http://localhost:5000/api/v1/removeCart", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        credentials: "include",
-        body: JSON.stringify({ productId }),
-      });
+      const res = await fetch(
+        `${import.meta.env.VITE_API_BASE_URL}/api/v1/removeCart`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          credentials: "include",
+          body: JSON.stringify({ productId }),
+        }
+      );
 
       const data = await res.json();
       if (!res.ok) {

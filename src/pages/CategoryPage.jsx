@@ -16,7 +16,9 @@ const CategoryPage = () => {
     try {
       setLoading(true);
       const res = await fetch(
-        `http://localhost:5000/api/v1/products/category/${category}`
+        `${
+          import.meta.env.VITE_API_BASE_URL
+        }/api/v1/products/category/${category}`
       );
       if (!res.ok) {
         throw new Error("Something went wrong, please try again later");

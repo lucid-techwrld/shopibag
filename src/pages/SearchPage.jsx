@@ -13,7 +13,9 @@ const SearchPage = () => {
       setLoading(true);
       try {
         const res = await fetch(
-          `http://localhost:5000/api/v1/products/search?query=${query}`
+          `${
+            import.meta.env.VITE_API_BASE_URL
+          }/api/v1/products/search?query=${query}`
         );
         if (!res.ok) {
           throw new Error("Failed to fetch products");

@@ -11,7 +11,7 @@ const Products = () => {
     try {
       setLoadingProduct(true);
       const res = await fetch(
-        "https://shopibag-backend.onrender.com/api/v1/products/all"
+        `${import.meta.env.VITE_API_BASE_URL}/api/v1/products/all`
       );
 
       if (!res.ok) {
