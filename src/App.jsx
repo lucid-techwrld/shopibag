@@ -20,7 +20,7 @@ function App() {
   return (
     <div className="w-full bg-slate-50 h-screen">
       <Routes>
-        <Route path="/WelcomePage" element={<WelcomePage />} />
+        <Route path="/" element={<WelcomePage />} />
         <Route path="/login" element={<Login />} />
         <Route path="/signup" element={<SignUp />} />
         <Route
@@ -33,7 +33,7 @@ function App() {
             />
           }
         >
-          <Route path="/" element={<Home />} />
+          <Route path="/home" element={<Home />} />
           <Route path="/profile" element={<ProfilePage />} />
           <Route path="/category/:category" element={<CategoryPage />} />
           <Route path="/cart" element={<CartPage />} />

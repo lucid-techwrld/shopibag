@@ -6,7 +6,7 @@ const CartContext = createContext();
 export const CartProvider = ({ children }) => {
   const [cartItems, setCartItems] = useState([]);
   const [cartCount, setCartCount] = useState(0);
-  const [popupData, setPopupData] = useState(null); // State for popup data
+  const [popupData, setPopupData] = useState(null);
 
   // Fetch cart data from the backend when the component mounts
   useEffect(() => {
@@ -17,11 +17,15 @@ export const CartProvider = ({ children }) => {
           credentials: "include", // Include cookies in the request
         });
 
+        const data = await res.json();
+
         if (!res.ok) {
-          throw new Error("Failed to fetch cart data");
+          throw new Error(
+            data.message ||
+              "Please check your internet connection and try again"
+          );
         }
 
-        const data = await res.json();
         if (data.success) {
           setCartItems(data.cart);
           setCartCount(data.cartTotal);
@@ -37,7 +41,7 @@ export const CartProvider = ({ children }) => {
     };
 
     fetchCart();
-  }, []); // Run only once when the component mounts
+  }, []);
 
   const handleAddToCart = async (product) => {
     try {
@@ -63,12 +67,6 @@ export const CartProvider = ({ children }) => {
       if (data.success) {
         setCartItems(data.cart);
         setCartCount(data.cartTotal);
-        setPopupData({
-          type: "success",
-          header: "Success",
-          message: "Product added to cart successfully!",
-          text: "",
-        });
       }
     } catch (error) {
       setPopupData({
@@ -135,7 +133,7 @@ export const CartProvider = ({ children }) => {
           header={popupData.header}
           message={popupData.message}
           text={popupData.text}
-          onClose={() => setPopupData(null)} // Close the toaster when clicked
+          onClose={() => setPopupData(null)}
         />
       )}
       {children}

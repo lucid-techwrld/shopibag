@@ -138,8 +138,10 @@ const SignUp = () => {
 
         <button
           type="submit"
-          className="w-full h-14 bg-blue-500 text-white font-bold rounded-lg hover:bg-blue-600 transition-all flex items-center justify-center"
           disabled={creatingAccount}
+          className={`w-full h-12 ${
+            creatingAccount ? "bg-blue-200" : "bg-blue-500"
+          } text-white font-bold rounded-lg hover:bg-blue-600 transition-all flex items-center justify-center`}
         >
           {creatingAccount ? (
             <VscLoading className="animate-spin text-2xl" />

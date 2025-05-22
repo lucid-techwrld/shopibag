@@ -2,6 +2,8 @@ import React from "react";
 import CartProductCard from "../components/CartProductCard";
 import Products from "../components/products";
 import BackButton from "../components/BackButton";
+import emptyCart from "../assets/icons/undraw_empty-cart_574u.svg";
+import CartSummary from "../components/CartSummary.jsx";
 import { useCart } from "../hooks/useCart.jsx";
 
 const CartPage = () => {
@@ -26,12 +28,20 @@ const CartPage = () => {
             </button>
           </div>
           {cartItems.map((product) => (
-            <CartProductCard key={product.productId.id} product={product} />
+            <CartProductCard key={product.productId._id} product={product} />
           ))}
+          <CartSummary cartItems={cartItems} />
         </div>
       ) : (
-        <div>
+        <div className="flex flex-col justify-center items-center">
+          <img
+            src={emptyCart}
+            alt="empty cart"
+            width={"150px"}
+            height={"150px"}
+          />
           <p className="text-center text-lg md:text-xl">Your cart is empty</p>
+          <h2 className="text-lg font-semibold mt-4">Explore products</h2>
           <Products />
         </div>
       )}

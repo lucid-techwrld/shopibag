@@ -49,7 +49,7 @@ const Login = () => {
           text: "Start shopping!!!",
         });
         setIsLoggedIn(true);
-        navigate("/");
+        navigate("/home");
       }
     } catch (error) {
       // Show error toaster
@@ -116,8 +116,10 @@ const Login = () => {
 
         <button
           type="submit"
-          className="w-full h-12 bg-blue-500 text-white font-bold rounded-lg hover:bg-blue-600 transition-all flex items-center justify-center"
           disabled={loggingIn}
+          className={`w-full h-12 ${
+            loggingIn ? "bg-blue-200" : "bg-blue-500"
+          } text-white font-bold rounded-lg hover:bg-blue-600 transition-all flex items-center justify-center`}
         >
           {loggingIn ? (
             <VscLoading className="animate-spin text-2xl" />

@@ -1,17 +1,17 @@
-import React from 'react'
-import { useNavigate } from 'react-router-dom'
-import { IoArrowBack } from 'react-icons/io5'
+import React from "react";
+import { useNavigate } from "react-router-dom";
+import { IoArrowBack } from "react-icons/io5";
 
-const BackButton = ({ label = 'Go Back', fallbackRoute = '/' }) => {
-  const navigate = useNavigate()
+const BackButton = ({ label = "Go Back", fallbackRoute = "/home" }) => {
+  const navigate = useNavigate();
 
   const handleGoBack = () => {
     if (window.history.length > 2) {
-      navigate(-1) // Go back to the previous route
+      navigate(-1); // Go back to the previous route
     } else {
-      navigate(fallbackRoute) // Navigate to the fallback route
+      navigate(fallbackRoute); // Navigate to the fallback route
     }
-  }
+  };
 
   return (
     <button
@@ -21,7 +21,7 @@ const BackButton = ({ label = 'Go Back', fallbackRoute = '/' }) => {
       <IoArrowBack className="text-xl md:text-2xl" />
       <span className="font-semibold">{label}</span>
     </button>
-  )
-}
+  );
+};
 
-export default BackButton
+export default BackButton;

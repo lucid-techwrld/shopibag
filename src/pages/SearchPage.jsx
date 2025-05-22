@@ -1,37 +1,41 @@
-import React, { useEffect, useState } from 'react'
-import { useParams } from 'react-router-dom'
-import ProductCard from '../components/ProductCard'
-import BackButton from '../components/BackButton'
+import React, { useEffect, useState } from "react";
+import { useParams } from "react-router-dom";
+import ProductCard from "../components/ProductCard";
+import BackButton from "../components/BackButton";
 
 const SearchPage = () => {
-  const { query } = useParams() // Extract the query parameter from the URL
-  const [products, setProducts] = useState([]) // State to store the fetched products
-  const [loading, setLoading] = useState(true) // State to handle loading state
+  const { query } = useParams();
+  const [products, setProducts] = useState([]); // State to store the fetched products
+  const [loading, setLoading] = useState(true); // State to handle loading state
 
   useEffect(() => {
     const fetchProducts = async () => {
-      setLoading(true)
+      setLoading(true);
       try {
-        const res = await fetch(`http://localhost:5000/api/v1/products/search?query=${query}`)
+        const res = await fetch(
+          `http://localhost:5000/api/v1/products/search?query=${query}`
+        );
         if (!res.ok) {
-          throw new Error('Failed to fetch products')
+          throw new Error("Failed to fetch products");
         }
-        const data = await res.json()
-        setProducts(data.products || []) // Update the products state
+        const data = await res.json();
+        setProducts(data.products || []); // Update the products state
       } catch (error) {
-        console.error('Error fetching products:', error.message)
+        console.error("Error fetching products:", error.message);
       } finally {
-        setLoading(false)
+        setLoading(false);
       }
-    }
+    };
 
-    fetchProducts()
-  }, [query]) // Re-fetch products whenever the query changes
+    fetchProducts();
+  }, [query]);
 
   return (
     <div className="w-full min-h-screen bg-gray-100 p-4">
-        <BackButton/>
-      <h1 className="text-2xl font-bold text-center mb-6">Search Results for "{query}"</h1>
+      <BackButton />
+      <h1 className="text-2xl font-bold text-center mb-6">
+        Search Results for "{query}"
+      </h1>
       {loading ? (
         <p className="text-center text-lg">Loading...</p>
       ) : products.length > 0 ? (
@@ -44,7 +48,7 @@ const SearchPage = () => {
         <p className="text-center text-lg">No products found for "{query}".</p>
       )}
     </div>
-  )
-}
+  );
+};
 
-export default SearchPage
+export default SearchPage;

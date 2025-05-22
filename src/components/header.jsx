@@ -23,15 +23,21 @@ const Navbar = ({ menuOpen, setMenuOpen }) => {
     event.preventDefault();
     let searchInput = document.getElementById("search");
     const searchValue = searchInput.value.trim();
+    if (!searchValue) return;
     navigate(`/search/${searchValue}`);
     searchInput.value = "";
   };
 
   return (
     <header className="w-full h-auto fixed top-0 z-30">
-      <div className="w-full h-[60px] bg-white  flex items-center justify-between gap-10 px-5 py-7 ">
+      <div className="w-full h-[60px] md:h-20 bg-white  flex items-center justify-between gap-10 px-5 py-7 ">
         <div className="flex flex-col justify-center items-center">
-          <img src={logo} alt="logo" className="w-[40px] h-[40px]" />
+          <img
+            src={logo}
+            alt="logo"
+            className="w-[40px] h-[40px]"
+            onClick={() => navigate("/home")}
+          />
           <p className="text-sm">SHOPiBAG</p>
         </div>
         {isLoggedIn ? (
@@ -71,13 +77,9 @@ const Navbar = ({ menuOpen, setMenuOpen }) => {
         )}
       </div>
       <form
-        className="w-full h-16 px-2 py-3 relative flex  items-center bg-slate-50"
+        className="w-full h-16 md:h-20 lg:h-20 px-2 py-3 relative flex  items-center bg-slate-50"
         onSubmit={searchProduct}
       >
-        <IoSearch
-          className="absolute text-xl right-5"
-          onClick={searchProduct}
-        />
         <input
           type="search"
           name="search"
@@ -85,6 +87,10 @@ const Navbar = ({ menuOpen, setMenuOpen }) => {
           className="outline-none border-2 border-black w-full rounded-full h-full bg-transparent px-8 py-3"
           placeholder="search categories, products brand....."
         />
+
+        <button type="submit" className="absolute right-5 text-xl md:text-2xl">
+          <IoSearch />
+        </button>
       </form>
     </header>
   );

@@ -10,7 +10,9 @@ const Products = () => {
   const fetchProducts = async () => {
     try {
       setLoadingProduct(true);
-      const res = await fetch("http://localhost:5000/api/v1/products/all");
+      const res = await fetch(
+        "https://shopibag-backend.onrender.com/api/v1/products/all"
+      );
 
       if (!res.ok) {
         throw new Error("Something went wrong, please try again later");
@@ -38,7 +40,7 @@ const Products = () => {
         </div>
       )}
       {loadedProducts?.length > 0 ? (
-        <div className="grid grid-cols-2 gap-2 px-2 py-3">
+        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-2 px-2 py-3">
           {loadedProducts.map((product) => (
             <ProductCard
               key={product._id}
