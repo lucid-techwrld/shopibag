@@ -8,43 +8,38 @@ export const CartProvider = ({ children }) => {
   const [cartCount, setCartCount] = useState(0);
   const [popupData, setPopupData] = useState(null);
 
-  // Fetch cart data from the backend when the component mounts
-  useEffect(() => {
-    const fetchCart = async () => {
-      try {
-        const res = await fetch(
-          `${import.meta.env.VITE_API_BASE_URL}/api/v1/getCart`,
-          {
-            method: "GET",
-            credentials: "include", // Include cookies in the request
-          }
+  const fetchCart = async () => {
+    try {
+      const res = await fetch(
+        `${import.meta.env.VITE_API_BASE_URL}/api/v1/getCart`,
+        {
+          method: "GET",
+          credentials: "include", // Include cookies in the request
+        }
+      );
+
+      const data = await res.json();
+
+      if (!res.ok) {
+        throw new Error(
+          data.message || "Please check your internet connection and try again"
         );
-
-        const data = await res.json();
-
-        if (!res.ok) {
-          throw new Error(
-            data.message ||
-              "Please check your internet connection and try again"
-          );
-        }
-
-        if (data.success) {
-          setCartItems(data.cart);
-          setCartCount(data.cartTotal);
-        }
-      } catch (error) {
-        setPopupData({
-          type: "error",
-          header: "Error",
-          message: error.message || "Failed to fetch cart data.",
-          text: "",
-        });
       }
-    };
 
-    fetchCart();
-  }, []);
+      if (data.success) {
+        setCartItems(data.cart);
+        setCartCount(data.cartTotal);
+      }
+    } catch (error) {
+      console.error("Failed to fetch cart data:", error);
+      setPopupData({
+        type: "error",
+        header: "Error",
+        message: error.message || "Failed to fetch cart data.",
+        text: "",
+      });
+    }
+  };
 
   const handleAddToCart = async (product) => {
     try {
@@ -134,6 +129,7 @@ export const CartProvider = ({ children }) => {
         setCartCount,
         handleAddToCart,
         handleRemoveFromCart,
+        fetchCart,
       }}
     >
       {popupData && (

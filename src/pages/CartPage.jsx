@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import CartProductCard from "../components/CartProductCard";
 import Products from "../components/products";
 import BackButton from "../components/BackButton";
@@ -7,7 +7,11 @@ import CartSummary from "../components/CartSummary.jsx";
 import { useCart } from "../hooks/useCart.jsx";
 
 const CartPage = () => {
-  const { cartItems } = useCart();
+  const { fetchCart, cartItems } = useCart();
+
+  useEffect(() => {
+    fetchCart();
+  }, []);
 
   return (
     <div className="w-full h-full px-2 py-6 md:px-10 lg:px-20">

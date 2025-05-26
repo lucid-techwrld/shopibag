@@ -14,13 +14,20 @@ const Products = () => {
         `${import.meta.env.VITE_API_BASE_URL}/api/v1/products/all`
       );
 
-      if (!res.ok) {
-        throw new Error("Something went wrong, please try again later");
+      const contentType = res.headers.get("content-type");
+      if (!res.ok || !contentType.includes("application/json")) {
+        const text = await res.text();
+        throw new Error(`Invalid response: ${text}`);
       }
+      // if (!res.ok) {
+      //   throw new Error("Something went wrong, please try again later");
+      // }
 
       const data = await res.json();
+      console.log("Products fetched:", data.products);
       setLoadedProducts(data.products);
     } catch (error) {
+      console.log(error);
       console.log("Failed to get product");
     } finally {
       setLoadingProduct(false);
